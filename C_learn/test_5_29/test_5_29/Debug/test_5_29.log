@@ -1,0 +1,4 @@
+﻿  main.c
+C:\C-VS-learn\test_5_29\test_5_29\main.c(308,44): warning C4090: “函数”: 不同的“const”限定符
+C:\C-VS-learn\test_5_29\test_5_29\main.c(308,33): warning C4113: “int (__cdecl *)(void *,void *)”和“_CoreCrtNonSecureSearchSortCompareFunction”的参数列表不同
+  test_5_29.vcxproj -> C:\C-VS-learn\test_5_29\Debug\test_5_29.exe

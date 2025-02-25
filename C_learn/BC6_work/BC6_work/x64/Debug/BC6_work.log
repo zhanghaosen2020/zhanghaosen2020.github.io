@@ -1,0 +1,3 @@
+﻿  main.c
+C:\C-VS-learn\BC6_work\BC6_work\main.c(100): warning C4715: “Functiton”: 不是所有的控件路径都返回值
+  BC6_work.vcxproj -> C:\C-VS-learn\BC6_work\x64\Debug\BC6_work.exe

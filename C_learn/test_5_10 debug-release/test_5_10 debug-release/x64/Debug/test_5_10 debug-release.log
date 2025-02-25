@@ -1,0 +1,4 @@
+﻿  main.c
+C:\C-VS-learn\test_5_10 debug-release\test_5_10 debug-release\main.c(64,2): warning C4013: “strcopy”未定义；假设外部返回 int
+main.obj : error LNK2019: 无法解析的外部符号 strcopy，函数 main 中引用了该符号
+C:\C-VS-learn\test_5_10 debug-release\x64\Debug\test_5_10 debug-release.exe : fatal error LNK1120: 1 个无法解析的外部命令

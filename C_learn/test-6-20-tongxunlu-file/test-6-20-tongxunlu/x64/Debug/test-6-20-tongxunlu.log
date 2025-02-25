@@ -1,0 +1,6 @@
+﻿  contact.c
+  test.c
+C:\C-VS-learn\test-6-20-tongxunlu-file\test-6-20-tongxunlu\contact.c(73,11): warning C4553: “==”: 未使用表达式结果；是否打算使用“=”?
+  正在生成代码...
+C:\C-VS-learn\test-6-20-tongxunlu-file\test-6-20-tongxunlu\contact.c(253,27): warning C4028: 形参 1 与声明不同
+  test-6-20-tongxunlu.vcxproj -> C:\C-VS-learn\test-6-20-tongxunlu-file\x64\Debug\test-6-20-tongxunlu.exe

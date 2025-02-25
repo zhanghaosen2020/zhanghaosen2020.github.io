@@ -1,0 +1,3 @@
+﻿  main.c
+C:\C-VS-learn\test_4_14_work\test_4_14_work\main.c(155): warning C4716: “Add”: 必须返回一个值
+  test_4_14_work.vcxproj -> C:\C-VS-learn\test_4_14_work\x64\Debug\test_4_14_work.exe

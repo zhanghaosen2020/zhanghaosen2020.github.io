@@ -1,0 +1,4 @@
+﻿  main.c
+C:\C-VS-learn\test_6_12\test_6_12\main.c(241,13): warning C4267: “初始化”: 从“size_t”转换到“int”，可能丢失数据
+C:\C-VS-learn\test_6_12\test_6_12\main.c(242,13): warning C4267: “初始化”: 从“size_t”转换到“int”，可能丢失数据
+  test_6_12.vcxproj -> C:\C-VS-learn\test_6_12\x64\Debug\test_6_12.exe

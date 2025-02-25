@@ -1,0 +1,34 @@
+﻿  main.c
+C:\C-VS-learn\test_6-17\test_6-17\main.c(70,9): warning C4477: “printf”: 格式字符串“%u”需要类型“unsigned int”的参数，但可变参数 1 拥有了类型“size_t”
+  C:\C-VS-learn\test_6-17\test_6-17\main.c(70,9):
+  请考虑在格式字符串中使用“%zu”
+  
+C:\C-VS-learn\test_6-17\test_6-17\main.c(71,9): warning C4477: “printf”: 格式字符串“%u”需要类型“unsigned int”的参数，但可变参数 1 拥有了类型“size_t”
+  C:\C-VS-learn\test_6-17\test_6-17\main.c(71,9):
+  请考虑在格式字符串中使用“%zu”
+  
+C:\C-VS-learn\test_6-17\test_6-17\main.c(72,9): warning C4477: “printf”: 格式字符串“%u”需要类型“unsigned int”的参数，但可变参数 1 拥有了类型“size_t”
+  C:\C-VS-learn\test_6-17\test_6-17\main.c(72,9):
+  请考虑在格式字符串中使用“%zu”
+  
+C:\C-VS-learn\test_6-17\test_6-17\main.c(73,9): warning C4477: “printf”: 格式字符串“%u”需要类型“unsigned int”的参数，但可变参数 1 拥有了类型“size_t”
+  C:\C-VS-learn\test_6-17\test_6-17\main.c(73,9):
+  请考虑在格式字符串中使用“%zu”
+  
+C:\C-VS-learn\test_6-17\test_6-17\main.c(74,9): warning C4477: “printf”: 格式字符串“%u”需要类型“unsigned int”的参数，但可变参数 1 拥有了类型“size_t”
+  C:\C-VS-learn\test_6-17\test_6-17\main.c(74,9):
+  请考虑在格式字符串中使用“%zu”
+  
+C:\C-VS-learn\test_6-17\test_6-17\main.c(75,9): warning C4477: “printf”: 格式字符串“%u”需要类型“unsigned int”的参数，但可变参数 1 拥有了类型“size_t”
+  C:\C-VS-learn\test_6-17\test_6-17\main.c(75,9):
+  请考虑在格式字符串中使用“%zu”
+  
+C:\C-VS-learn\test_6-17\test_6-17\main.c(76,9): warning C4477: “printf”: 格式字符串“%u”需要类型“unsigned int”的参数，但可变参数 1 拥有了类型“size_t”
+  C:\C-VS-learn\test_6-17\test_6-17\main.c(76,9):
+  请考虑在格式字符串中使用“%zu”
+  
+C:\C-VS-learn\test_6-17\test_6-17\main.c(77,9): warning C4477: “printf”: 格式字符串“%u”需要类型“unsigned int”的参数，但可变参数 1 拥有了类型“size_t”
+  C:\C-VS-learn\test_6-17\test_6-17\main.c(77,9):
+  请考虑在格式字符串中使用“%zu”
+  
+  test_6-17.vcxproj -> C:\C-VS-learn\test_6-17\x64\Debug\test_6-17.exe

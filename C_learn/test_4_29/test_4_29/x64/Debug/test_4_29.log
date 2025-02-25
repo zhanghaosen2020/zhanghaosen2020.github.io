@@ -1,0 +1,22 @@
+﻿  main.c
+C:\C-VS-learn\test_4_29\test_4_29\main.c(14,9): warning C4477: “printf”: 格式字符串“%d”需要类型“int”的参数，但可变参数 1 拥有了类型“size_t”
+  C:\C-VS-learn\test_4_29\test_4_29\main.c(14,9):
+  请考虑在格式字符串中使用“%zd”
+  
+C:\C-VS-learn\test_4_29\test_4_29\main.c(15,9): warning C4477: “printf”: 格式字符串“%d”需要类型“int”的参数，但可变参数 1 拥有了类型“size_t”
+  C:\C-VS-learn\test_4_29\test_4_29\main.c(15,9):
+  请考虑在格式字符串中使用“%zd”
+  
+C:\C-VS-learn\test_4_29\test_4_29\main.c(16,9): warning C4477: “printf”: 格式字符串“%d”需要类型“int”的参数，但可变参数 1 拥有了类型“size_t”
+  C:\C-VS-learn\test_4_29\test_4_29\main.c(16,9):
+  请考虑在格式字符串中使用“%zd”
+  
+C:\C-VS-learn\test_4_29\test_4_29\main.c(17,9): warning C4477: “printf”: 格式字符串“%d”需要类型“int”的参数，但可变参数 1 拥有了类型“size_t”
+  C:\C-VS-learn\test_4_29\test_4_29\main.c(17,9):
+  请考虑在格式字符串中使用“%zd”
+  
+C:\C-VS-learn\test_4_29\test_4_29\main.c(18,9): warning C4477: “printf”: 格式字符串“%d”需要类型“int”的参数，但可变参数 1 拥有了类型“size_t”
+  C:\C-VS-learn\test_4_29\test_4_29\main.c(18,9):
+  请考虑在格式字符串中使用“%zd”
+  
+  test_4_29.vcxproj -> C:\C-VS-learn\test_4_29\x64\Debug\test_4_29.exe
