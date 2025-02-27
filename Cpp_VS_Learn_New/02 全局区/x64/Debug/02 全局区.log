@@ -1,0 +1,16 @@
+﻿  02 全局区.cpp
+C:\Cpp_VS_Learn_New\02 全局区\02 全局区.cpp(15,43): warning C4311: “类型强制转换”: 从“int *”到“int”的指针截断
+C:\Cpp_VS_Learn_New\02 全局区\02 全局区.cpp(15,43): warning C4302: “类型强制转换”: 从“int *”到“int”截断
+C:\Cpp_VS_Learn_New\02 全局区\02 全局区.cpp(16,43): warning C4311: “类型强制转换”: 从“int *”到“int”的指针截断
+C:\Cpp_VS_Learn_New\02 全局区\02 全局区.cpp(16,43): warning C4302: “类型强制转换”: 从“int *”到“int”截断
+C:\Cpp_VS_Learn_New\02 全局区\02 全局区.cpp(18,45): warning C4311: “类型强制转换”: 从“int *”到“int”的指针截断
+C:\Cpp_VS_Learn_New\02 全局区\02 全局区.cpp(18,45): warning C4302: “类型强制转换”: 从“int *”到“int”截断
+C:\Cpp_VS_Learn_New\02 全局区\02 全局区.cpp(19,45): warning C4311: “类型强制转换”: 从“int *”到“int”的指针截断
+C:\Cpp_VS_Learn_New\02 全局区\02 全局区.cpp(19,45): warning C4302: “类型强制转换”: 从“int *”到“int”截断
+C:\Cpp_VS_Learn_New\02 全局区\02 全局区.cpp(24,45): warning C4311: “类型强制转换”: 从“int *”到“int”的指针截断
+C:\Cpp_VS_Learn_New\02 全局区\02 全局区.cpp(24,45): warning C4302: “类型强制转换”: 从“int *”到“int”截断
+C:\Cpp_VS_Learn_New\02 全局区\02 全局区.cpp(25,45): warning C4311: “类型强制转换”: 从“int *”到“int”的指针截断
+C:\Cpp_VS_Learn_New\02 全局区\02 全局区.cpp(25,45): warning C4302: “类型强制转换”: 从“int *”到“int”截断
+C:\Cpp_VS_Learn_New\02 全局区\02 全局区.cpp(29,45): warning C4311: “类型强制转换”: 从“const char (*)[6]”到“int”的指针截断
+C:\Cpp_VS_Learn_New\02 全局区\02 全局区.cpp(29,45): warning C4302: “类型强制转换”: 从“const char (*)[6]”到“int”截断
+  02 全局区.vcxproj -> C:\Cpp_VS_Learn_New\02 全局区\x64\Debug\02 全局区.exe
