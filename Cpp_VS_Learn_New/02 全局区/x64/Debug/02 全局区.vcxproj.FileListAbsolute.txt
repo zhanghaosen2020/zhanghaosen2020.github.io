@@ -1,1 +1,2 @@
 C:\Cpp_VS_Learn_New\02 全局区\x64\Debug\02 全局区.exe
+C:\Cpp_VS_Learn_New\02 全局区\x64\Debug\02 内存四区.exe

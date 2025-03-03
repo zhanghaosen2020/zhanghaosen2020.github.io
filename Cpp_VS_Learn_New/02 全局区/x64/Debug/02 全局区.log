@@ -1,16 +1,22 @@
-﻿  02 全局区.cpp
-C:\Cpp_VS_Learn_New\02 全局区\02 全局区.cpp(15,43): warning C4311: “类型强制转换”: 从“int *”到“int”的指针截断
-C:\Cpp_VS_Learn_New\02 全局区\02 全局区.cpp(15,43): warning C4302: “类型强制转换”: 从“int *”到“int”截断
-C:\Cpp_VS_Learn_New\02 全局区\02 全局区.cpp(16,43): warning C4311: “类型强制转换”: 从“int *”到“int”的指针截断
-C:\Cpp_VS_Learn_New\02 全局区\02 全局区.cpp(16,43): warning C4302: “类型强制转换”: 从“int *”到“int”截断
-C:\Cpp_VS_Learn_New\02 全局区\02 全局区.cpp(18,45): warning C4311: “类型强制转换”: 从“int *”到“int”的指针截断
-C:\Cpp_VS_Learn_New\02 全局区\02 全局区.cpp(18,45): warning C4302: “类型强制转换”: 从“int *”到“int”截断
-C:\Cpp_VS_Learn_New\02 全局区\02 全局区.cpp(19,45): warning C4311: “类型强制转换”: 从“int *”到“int”的指针截断
-C:\Cpp_VS_Learn_New\02 全局区\02 全局区.cpp(19,45): warning C4302: “类型强制转换”: 从“int *”到“int”截断
-C:\Cpp_VS_Learn_New\02 全局区\02 全局区.cpp(24,45): warning C4311: “类型强制转换”: 从“int *”到“int”的指针截断
-C:\Cpp_VS_Learn_New\02 全局区\02 全局区.cpp(24,45): warning C4302: “类型强制转换”: 从“int *”到“int”截断
-C:\Cpp_VS_Learn_New\02 全局区\02 全局区.cpp(25,45): warning C4311: “类型强制转换”: 从“int *”到“int”的指针截断
-C:\Cpp_VS_Learn_New\02 全局区\02 全局区.cpp(25,45): warning C4302: “类型强制转换”: 从“int *”到“int”截断
-C:\Cpp_VS_Learn_New\02 全局区\02 全局区.cpp(29,45): warning C4311: “类型强制转换”: 从“const char (*)[6]”到“int”的指针截断
-C:\Cpp_VS_Learn_New\02 全局区\02 全局区.cpp(29,45): warning C4302: “类型强制转换”: 从“const char (*)[6]”到“int”截断
-  02 全局区.vcxproj -> C:\Cpp_VS_Learn_New\02 全局区\x64\Debug\02 全局区.exe
+﻿C:\Program Files\Microsoft Visual Studio\2022\Community\MSBuild\Microsoft\VC\v170\Microsoft.CppBuild.targets(531,5): warning MSB8028: 中间目录(x64\Debug\)包含从另一个项目(02 全局区.vcxproj)共享的文件。   这会导致错误的清除和重新生成行为。
+  01 全局区.cpp
+C:\Cpp_VS_Learn_New\02 全局区\01 全局区.cpp(17,43): warning C4311: “类型强制转换”: 从“int *”到“int”的指针截断
+C:\Cpp_VS_Learn_New\02 全局区\01 全局区.cpp(17,43): warning C4302: “类型强制转换”: 从“int *”到“int”截断
+C:\Cpp_VS_Learn_New\02 全局区\01 全局区.cpp(18,43): warning C4311: “类型强制转换”: 从“int *”到“int”的指针截断
+C:\Cpp_VS_Learn_New\02 全局区\01 全局区.cpp(18,43): warning C4302: “类型强制转换”: 从“int *”到“int”截断
+C:\Cpp_VS_Learn_New\02 全局区\01 全局区.cpp(20,45): warning C4311: “类型强制转换”: 从“int *”到“int”的指针截断
+C:\Cpp_VS_Learn_New\02 全局区\01 全局区.cpp(20,45): warning C4302: “类型强制转换”: 从“int *”到“int”截断
+C:\Cpp_VS_Learn_New\02 全局区\01 全局区.cpp(21,45): warning C4311: “类型强制转换”: 从“int *”到“int”的指针截断
+C:\Cpp_VS_Learn_New\02 全局区\01 全局区.cpp(21,45): warning C4302: “类型强制转换”: 从“int *”到“int”截断
+C:\Cpp_VS_Learn_New\02 全局区\01 全局区.cpp(26,45): warning C4311: “类型强制转换”: 从“int *”到“int”的指针截断
+C:\Cpp_VS_Learn_New\02 全局区\01 全局区.cpp(26,45): warning C4302: “类型强制转换”: 从“int *”到“int”截断
+C:\Cpp_VS_Learn_New\02 全局区\01 全局区.cpp(27,45): warning C4311: “类型强制转换”: 从“int *”到“int”的指针截断
+C:\Cpp_VS_Learn_New\02 全局区\01 全局区.cpp(27,45): warning C4302: “类型强制转换”: 从“int *”到“int”截断
+C:\Cpp_VS_Learn_New\02 全局区\01 全局区.cpp(31,45): warning C4311: “类型强制转换”: 从“const char (*)[6]”到“int”的指针截断
+C:\Cpp_VS_Learn_New\02 全局区\01 全局区.cpp(31,45): warning C4302: “类型强制转换”: 从“const char (*)[6]”到“int”截断
+C:\Cpp_VS_Learn_New\02 全局区\01 全局区.cpp(35,42): warning C4311: “类型强制转换”: 从“const int *”到“int”的指针截断
+C:\Cpp_VS_Learn_New\02 全局区\01 全局区.cpp(35,42): warning C4302: “类型强制转换”: 从“const int *”到“int”截断
+C:\Cpp_VS_Learn_New\02 全局区\01 全局区.cpp(39,42): warning C4311: “类型强制转换”: 从“const int *”到“int”的指针截断
+C:\Cpp_VS_Learn_New\02 全局区\01 全局区.cpp(39,42): warning C4302: “类型强制转换”: 从“const int *”到“int”截断
+  02 全局区.vcxproj -> C:\Cpp_VS_Learn_New\02 全局区\x64\Debug\02 内存四区.exe
+C:\Program Files\Microsoft Visual Studio\2022\Community\MSBuild\Current\Bin\amd64\Microsoft.Common.CurrentVersion.targets(5486,5): warning MSB3061: 无法删除文件“C:\Cpp_VS_Learn_New\02 全局区\x64\Debug\02 全局区.exe”。对路径“C:\Cpp_VS_Learn_New\02 全局区\x64\Debug\02 全局区.exe”的访问被拒绝。

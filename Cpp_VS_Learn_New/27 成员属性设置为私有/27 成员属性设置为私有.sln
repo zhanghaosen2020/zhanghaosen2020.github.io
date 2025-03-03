@@ -1,0 +1,51 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.8.34330.188
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "27 成员属性设置为私有", "27 成员属性设置为私有.vcxproj", "{7B21B75A-D725-4C23-86B4-D5D473BC0119}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "28 设计一个立方体类", "..\28 设计一个立方体类\28 设计一个立方体类.vcxproj", "{AE0DBC87-F24C-4B3A-92EE-DC87AB094756}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "29 类的设计圆和点的关系", "..\29 类的设计圆和点的关系\29 类的设计圆和点的关系.vcxproj", "{71B82080-A5C8-4B0B-8870-8163F7D23E0A}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x64 = Debug|x64
+		Debug|x86 = Debug|x86
+		Release|x64 = Release|x64
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{7B21B75A-D725-4C23-86B4-D5D473BC0119}.Debug|x64.ActiveCfg = Debug|x64
+		{7B21B75A-D725-4C23-86B4-D5D473BC0119}.Debug|x64.Build.0 = Debug|x64
+		{7B21B75A-D725-4C23-86B4-D5D473BC0119}.Debug|x86.ActiveCfg = Debug|Win32
+		{7B21B75A-D725-4C23-86B4-D5D473BC0119}.Debug|x86.Build.0 = Debug|Win32
+		{7B21B75A-D725-4C23-86B4-D5D473BC0119}.Release|x64.ActiveCfg = Release|x64
+		{7B21B75A-D725-4C23-86B4-D5D473BC0119}.Release|x64.Build.0 = Release|x64
+		{7B21B75A-D725-4C23-86B4-D5D473BC0119}.Release|x86.ActiveCfg = Release|Win32
+		{7B21B75A-D725-4C23-86B4-D5D473BC0119}.Release|x86.Build.0 = Release|Win32
+		{AE0DBC87-F24C-4B3A-92EE-DC87AB094756}.Debug|x64.ActiveCfg = Debug|x64
+		{AE0DBC87-F24C-4B3A-92EE-DC87AB094756}.Debug|x64.Build.0 = Debug|x64
+		{AE0DBC87-F24C-4B3A-92EE-DC87AB094756}.Debug|x86.ActiveCfg = Debug|Win32
+		{AE0DBC87-F24C-4B3A-92EE-DC87AB094756}.Debug|x86.Build.0 = Debug|Win32
+		{AE0DBC87-F24C-4B3A-92EE-DC87AB094756}.Release|x64.ActiveCfg = Release|x64
+		{AE0DBC87-F24C-4B3A-92EE-DC87AB094756}.Release|x64.Build.0 = Release|x64
+		{AE0DBC87-F24C-4B3A-92EE-DC87AB094756}.Release|x86.ActiveCfg = Release|Win32
+		{AE0DBC87-F24C-4B3A-92EE-DC87AB094756}.Release|x86.Build.0 = Release|Win32
+		{71B82080-A5C8-4B0B-8870-8163F7D23E0A}.Debug|x64.ActiveCfg = Debug|x64
+		{71B82080-A5C8-4B0B-8870-8163F7D23E0A}.Debug|x64.Build.0 = Debug|x64
+		{71B82080-A5C8-4B0B-8870-8163F7D23E0A}.Debug|x86.ActiveCfg = Debug|Win32
+		{71B82080-A5C8-4B0B-8870-8163F7D23E0A}.Debug|x86.Build.0 = Debug|Win32
+		{71B82080-A5C8-4B0B-8870-8163F7D23E0A}.Release|x64.ActiveCfg = Release|x64
+		{71B82080-A5C8-4B0B-8870-8163F7D23E0A}.Release|x64.Build.0 = Release|x64
+		{71B82080-A5C8-4B0B-8870-8163F7D23E0A}.Release|x86.ActiveCfg = Release|Win32
+		{71B82080-A5C8-4B0B-8870-8163F7D23E0A}.Release|x86.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {C98A7805-EB83-4ED9-9988-74DDAB9665D8}
+	EndGlobalSection
+EndGlobal

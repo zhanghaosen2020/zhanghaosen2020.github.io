@@ -1,0 +1,2 @@
+﻿02 引用做函数参数.obj : error LNK2005: main 已经在 01 引用的基本语法.obj 中定义
+C:\Cpp_VS_Learn_New\03 引用(取别名)\x64\Debug\03 引用(取别名).exe : fatal error LNK1169: 找到一个或多个多重定义的符号
