@@ -1,0 +1,3 @@
+﻿  计算器类.cpp
+C:\Cpp_VS_Learn_New\71 计算器类\计算器类.cpp(20): warning C4715: “Calculator::getResult”: 不是所有的控件路径都返回值
+  71 计算器类.vcxproj -> C:\Cpp_VS_Learn_New\69 多态的基本概念\x64\Debug\71 计算器类.exe
