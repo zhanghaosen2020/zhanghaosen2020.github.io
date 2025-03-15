@@ -47,12 +47,22 @@ public:
 	//职工是否存在,后续增删查改都需要用到
 	//如果存在返回职工在数组中的位置,如果不存在,则返回-1;
 	int IsExist(int id);
+	int IsExist(string name);//重载该函数
 	
 	//按照编号删除职工
 	void Del_Emp();
 
 	//修改职工
 	void Mod_Emp();
+
+	//查找员工
+	void Find_Emp();
+
+	//排序职工
+	void Sort_Emp();
+
+	//清空文件
+	void Clean_File();
 
 	~WorkerManager();
 };
