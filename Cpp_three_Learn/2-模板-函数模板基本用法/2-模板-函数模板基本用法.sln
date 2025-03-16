@@ -9,6 +9,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "4 函数模板案例", "..\
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "5 普通函数和函数模板的区别", "..\5 普通函数和函数模板的区别\5 普通函数和函数模板的区别.vcxproj", "{CAE9E4F3-F2A4-4ED2-9569-991A6F70DECF}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "6 普通函数和模板函数的调用规则", "..\6 普通函数和模板函数的调用规则\6 普通函数和模板函数的调用规则.vcxproj", "{B2BB1282-6F3F-4C27-8656-83D50B14169E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -41,6 +43,14 @@ Global
 		{CAE9E4F3-F2A4-4ED2-9569-991A6F70DECF}.Release|x64.Build.0 = Release|x64
 		{CAE9E4F3-F2A4-4ED2-9569-991A6F70DECF}.Release|x86.ActiveCfg = Release|Win32
 		{CAE9E4F3-F2A4-4ED2-9569-991A6F70DECF}.Release|x86.Build.0 = Release|Win32
+		{B2BB1282-6F3F-4C27-8656-83D50B14169E}.Debug|x64.ActiveCfg = Debug|x64
+		{B2BB1282-6F3F-4C27-8656-83D50B14169E}.Debug|x64.Build.0 = Debug|x64
+		{B2BB1282-6F3F-4C27-8656-83D50B14169E}.Debug|x86.ActiveCfg = Debug|Win32
+		{B2BB1282-6F3F-4C27-8656-83D50B14169E}.Debug|x86.Build.0 = Debug|Win32
+		{B2BB1282-6F3F-4C27-8656-83D50B14169E}.Release|x64.ActiveCfg = Release|x64
+		{B2BB1282-6F3F-4C27-8656-83D50B14169E}.Release|x64.Build.0 = Release|x64
+		{B2BB1282-6F3F-4C27-8656-83D50B14169E}.Release|x86.ActiveCfg = Release|Win32
+		{B2BB1282-6F3F-4C27-8656-83D50B14169E}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
