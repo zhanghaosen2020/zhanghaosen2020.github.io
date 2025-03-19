@@ -67,11 +67,31 @@ void test04()
 	Son* son3 = dynamic_cast<Son*>(base3);
 
 }
+
+
+//const_cast
+void test05()
+{
+	const int* p = NULL;
+	int* pp = const_cast<int*>(p);//p是一个常量指针,指向的内容是一个常量不可更改,现在可以将其转换为一个非常量指针pp,pp指向的内容是可变的了
+
+	const int* ppp = const_cast<const int*>(pp);//此时是将上述操作反过来,将非常量指针转化为常量指针
+
+	int a = 10;
+	int& b = a;
+	const int& b_ref = const_cast<const int&>(b);
+
+	//int& b_ref1 = const_cast<const int&>(b_ref);
+}
+
+
+
 int main() {
 	test01();
 	test02();
 	test03();
 	test04();
+	test05();
 	system("pause");
 	return EXIT_SUCCESS;
 }
