@@ -1,0 +1,4 @@
+﻿  字符串查找和替换.cpp
+C:\zhanghaosen2020.github.io\Cpp_three_Learn\39 字符串查找和替换\字符串查找和替换.cpp(20,10): warning C4267: “初始化”: 从“size_t”转换到“int”，可能丢失数据
+C:\zhanghaosen2020.github.io\Cpp_three_Learn\39 字符串查找和替换\字符串查找和替换.cpp(23,18): warning C4267: “=”: 从“size_t”转换到“int”，可能丢失数据
+  39 字符串查找和替换.vcxproj -> C:\zhanghaosen2020.github.io\Cpp_three_Learn\36 string容器-构造函数\x64\Debug\39 字符串查找和替换.exe

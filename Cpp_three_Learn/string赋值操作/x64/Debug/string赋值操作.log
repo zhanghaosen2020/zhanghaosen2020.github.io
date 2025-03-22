@@ -1,0 +1,47 @@
+﻿  string赋值操作.cpp
+C:\zhanghaosen2020.github.io\Cpp_three_Learn\string赋值操作\string赋值操作.cpp(25,14): error C2440: “初始化”: 无法从“char”转换为“std::basic_string<char,std::char_traits<char>,std::allocator<char>>”
+  C:\zhanghaosen2020.github.io\Cpp_three_Learn\string赋值操作\string赋值操作.cpp(25,14):
+  “std::basic_string<char,std::char_traits<char>,std::allocator<char>>::basic_string”: 没有重载函数可以转换所有参数类型
+  	C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.38.33130\include\xstring(2545,5):
+  	可能是“std::basic_string<char,std::char_traits<char>,std::allocator<char>>::basic_string(const _Elem *const )”
+          with
+          [
+              _Elem=char
+          ]
+  		C:\zhanghaosen2020.github.io\Cpp_three_Learn\string赋值操作\string赋值操作.cpp(25,14):
+  		“std::basic_string<char,std::char_traits<char>,std::allocator<char>>::basic_string(const _Elem *const )”: 无法将参数 1 从“char”转换为“const _Elem *const ”
+          with
+          [
+              _Elem=char
+          ]
+  			C:\zhanghaosen2020.github.io\Cpp_three_Learn\string赋值操作\string赋值操作.cpp(25,16):
+  			从整型类型转换为指针类型需要 reinterpret_cast、C 样式转换或带圆括号的函数样式强制转换
+  	C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.38.33130\include\xstring(3092,5):
+  	或    “std::basic_string<char,std::char_traits<char>,std::allocator<char>>::basic_string(std::initializer_list<_Elem>,const _Alloc &)”
+          with
+          [
+              _Elem=char,
+              _Alloc=std::allocator<char>
+          ]
+  		C:\zhanghaosen2020.github.io\Cpp_three_Learn\string赋值操作\string赋值操作.cpp(25,14):
+  		“std::basic_string<char,std::char_traits<char>,std::allocator<char>>::basic_string(std::initializer_list<_Elem>,const _Alloc &)”: 无法将参数 1 从“char”转换为“std::initializer_list<_Elem>”
+          with
+          [
+              _Elem=char,
+              _Alloc=std::allocator<char>
+          ]
+          and
+          [
+              _Elem=char
+          ]
+  			C:\zhanghaosen2020.github.io\Cpp_three_Learn\string赋值操作\string赋值操作.cpp(25,16):
+  			转换要求第二个用户定义的转换运算符或构造函数
+  	C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.38.33130\include\xstring(2575,5):
+  	或    “std::basic_string<char,std::char_traits<char>,std::allocator<char>>::basic_string(_Iter,_Iter,const _Alloc &)”
+          with
+          [
+              _Alloc=std::allocator<char>
+          ]
+  	C:\zhanghaosen2020.github.io\Cpp_three_Learn\string赋值操作\string赋值操作.cpp(25,14):
+  	尝试匹配参数列表“(char)”时
+  

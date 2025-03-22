@@ -9,8 +9,21 @@ using namespace std;
 //string(int n, char c); //使用n个字符c初始化
 void test01()
 {
-	string str;//调用string这个类的默认构造函数,创建一个空字符
-	cout << "str = " << str << endl;
+	string str1;//调用string这个类的默认构造函数,创建一个空字符
+	cout << "str1 = " << str1 << endl;
+
+	//const char* str = "hello world";
+	//string str2(str);// 注意:此处发生了隐式类型转换
+	//cout << "str2 = " << str2 << endl;
+	string str2("jjj");
+
+	string str3(str2);
+	cout << "str3 = " << str3 << endl;
+
+	string str4(6, 'a');
+	cout << "str4 = " << str4 << endl;
+
+
 
 }
 
