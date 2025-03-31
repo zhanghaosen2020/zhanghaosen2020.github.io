@@ -1,0 +1,5 @@
+﻿  员工分组.cpp
+C:\zhanghaosen2020.github.io\Cpp_three_Learn\83 员工分组\员工分组.cpp(53,12): warning C4267: “初始化”: 从“size_t”转换到“int”，可能丢失数据
+C:\zhanghaosen2020.github.io\Cpp_three_Learn\83 员工分组\员工分组.cpp(63,17): warning C4267: “=”: 从“size_t”转换到“int”，可能丢失数据
+C:\zhanghaosen2020.github.io\Cpp_three_Learn\83 员工分组\员工分组.cpp(73,17): warning C4267: “=”: 从“size_t”转换到“int”，可能丢失数据
+  83 员工分组.vcxproj -> C:\zhanghaosen2020.github.io\Cpp_three_Learn\83 员工分组\x64\Debug\83 员工分组.exe

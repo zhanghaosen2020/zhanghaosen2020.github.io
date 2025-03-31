@@ -119,15 +119,95 @@ void test03()
 
 void test04()
 {
-	pair<string, int>p("Jack", 100);
+	pair<string, int>p("Jack", 100);//方式一
 	cout << "姓名: " << p.first << "  年龄: " << p.second << endl;
+
+	pair<string, int>p1 = make_pair("嘻嘻", 100);//方式二
+	cout << "姓名: " << p1.first << "  年龄: " << p1.second << endl;
+
+}
+
+
+//set存放内置数据类型,排序函数
+class MyCompare
+{
+public:
+	bool operator()(int val1, int val2) const//仿函数,这里的const很重要!!
+	{
+		return val1 > val2;
+	}
+};
+void test05()
+{
+	set<int>s1;
+	s1.insert(10);
+	s1.insert(5);
+	s1.insert(1);
+	s1.insert(4);
+	s1.insert(9);
+	printSet(s1);//默认升序,我们如何指定排序规则呢
+	//要按降序排列
+	set<int,MyCompare>s2 ;
+	s2.insert(10);
+	s2.insert(5);
+	s2.insert(1);
+	s2.insert(4);
+	s2.insert(9);
+	//printSet(s2);错误,每个容器都有自己的专属迭代器
+	for (set<int, MyCompare>::iterator it = s2.begin(); it != s2.end(); it++)
+	{
+		cout << *it << " ";
+	}
+	cout << endl;
+
+}
+
+//存放自定义数据类型
+class Person
+{
+public:
+	Person(string name, int age)
+	{
+		this->m_Name = name;
+		this->m_Age = age;
+	}
+	string m_Name;
+	int m_Age;
+};
+class comparePerson {
+public:
+	//不能修改指定的数据,用const 修饰Person&p1
+	bool operator()(const Person& p1, const Person& p2)const
+	{
+		return p1.m_Age > p2.m_Age;
+	}
+};
+void test06()
+{
+
+	//自定义数据类型,一定要注意指定排序规则
+	set<Person, comparePerson> s;
+	Person p1("刘备", 23);
+	Person p2("关羽", 27);
+	Person p3("张飞", 25);
+	Person p4("赵云", 21);
+	s.insert(p1);
+	s.insert(p2);
+	s.insert(p3);
+	s.insert(p4);
+	for (set<Person, comparePerson>::iterator it = s.begin(); it != s.end(); it++)
+	{
+		cout << "姓名: " << it->m_Name << " 年龄: " << it->m_Age<<endl;
+	}
 }
 
 int main() {
 	//test01();
 	//test02();
 	//test03();
-	test04();
+	//test04();
+	//test05();
+	test06();
 	system("pause");
 	return EXIT_SUCCESS;
 }
