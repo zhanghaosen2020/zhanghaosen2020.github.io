@@ -62,9 +62,41 @@ void test02()
 
 }
 
+//template<class T> bool logical_and<T> //Âß¼­Óë
+//template<class T> bool logical_or<T> //Âß¼­»ò
+//template<class T> bool logical_not<T> //Âß¼­·Ç
+
+void test03()
+{
+	vector<bool>v;
+	v.push_back(true);
+	v.push_back(false);
+	v.push_back(true);
+	v.push_back(false);
+
+	for (vector<bool>::iterator it = v.begin(); it != v.end(); it++)
+	{
+		cout << *it << " ";
+	}
+	cout << endl;
+
+	vector<bool>v1;
+	v1.resize(v.size());
+	transform(v.begin(), v.end(),v1.begin(), logical_not<bool>());
+
+
+	for (vector<bool>::iterator it = v1.begin(); it != v1.end(); it++)
+	{
+		cout << *it << " ";
+	}
+	cout << endl;
+
+}
+
 int main() {
 	//test01();
-	test02();
+	//test02();
+	test03();
 	system("pause");
 	return EXIT_SUCCESS;
 }

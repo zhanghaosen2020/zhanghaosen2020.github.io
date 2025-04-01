@@ -1,0 +1,6 @@
+﻿  统计元素个数.cpp
+C:\zhanghaosen2020.github.io\Cpp_three_Learn\99 统计元素个数\统计元素个数.cpp(20,10): warning C4244: “初始化”: 从“__int64”转换到“int”，可能丢失数据
+C:\zhanghaosen2020.github.io\Cpp_three_Learn\99 统计元素个数\统计元素个数.cpp(90,10): warning C4244: “初始化”: 从“__int64”转换到“int”，可能丢失数据
+C:\zhanghaosen2020.github.io\Cpp_three_Learn\99 统计元素个数\统计元素个数.cpp(94,11): warning C4244: “初始化”: 从“__int64”转换到“int”，可能丢失数据
+C:\zhanghaosen2020.github.io\Cpp_three_Learn\99 统计元素个数\统计元素个数.cpp(71): warning C4715: “Greater::operator()”: 不是所有的控件路径都返回值
+  99 统计元素个数.vcxproj -> C:\zhanghaosen2020.github.io\Cpp_three_Learn\90 函数对象适配器\x64\Debug\99 统计元素个数.exe
