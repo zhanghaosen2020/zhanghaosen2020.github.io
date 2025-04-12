@@ -64,7 +64,7 @@ I (..\..\Drivers\CMSIS\Include\cmsis_compiler.h)(0x665054DC)
 I (..\..\Drivers\CMSIS\Include\cmsis_armcc.h)(0x665054DC)
 I (..\..\Drivers\CMSIS\Include\mpu_armv7.h)(0x665054DC)
 I (..\..\Drivers\CMSIS\Device\ST\STM32F4xx\Include\system_stm32f4xx.h)(0x665054DC)
-F (..\..\Drivers\BSP\KEY\key.c)(0x67F86D55)(--c99 -c --cpu Cortex-M4.fp.sp -g -O0 --apcs=interwork --split_sections -I ..\..\Drivers\CMSIS\Device\ST\STM32F4xx\Include -I ..\..\Drivers\CMSIS\Include -I ..\..\Drivers -I ..\..\Middlewares -I ..\..\User -I ..\..\Drivers\BSP\LED -I ..\..\Drivers\BSP\KEY-ID:\Software\MDK536\Packs\Keil\STM32F4xx_DFP\2.15.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-D__UVISION_VERSION="536" -DSTM32F407xx -DSTM32F407xx-o ..\..\output\key.o --omf_browse ..\..\output\key.crf --depend ..\..\output\key.d)
+F (..\..\Drivers\BSP\KEY\key.c)(0x67F8898B)(--c99 -c --cpu Cortex-M4.fp.sp -g -O0 --apcs=interwork --split_sections -I ..\..\Drivers\CMSIS\Device\ST\STM32F4xx\Include -I ..\..\Drivers\CMSIS\Include -I ..\..\Drivers -I ..\..\Middlewares -I ..\..\User -I ..\..\Drivers\BSP\LED -I ..\..\Drivers\BSP\KEY-ID:\Software\MDK536\Packs\Keil\STM32F4xx_DFP\2.15.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-D__UVISION_VERSION="536" -DSTM32F407xx -DSTM32F407xx-o ..\..\output\key.o --omf_browse ..\..\output\key.crf --depend ..\..\output\key.d)
 I (..\..\Drivers\./BSP/KEY/key.h)(0x67F86D55)
 I (..\..\Drivers\CMSIS\Device\ST\STM32F4xx\Include\stm32f4xx.h)(0x665054DC)
 I (..\..\Drivers\CMSIS\Device\ST\STM32F4xx\Include\stm32f407xx.h)(0x665054DC)
