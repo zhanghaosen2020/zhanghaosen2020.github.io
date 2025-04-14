@@ -230,14 +230,13 @@ void EXTI4_IRQHandler(void)
 /* USER CODE BEGIN 1 */
 void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
 {
+    //防抖延时
+    HAL_Delay(10);
+    
     //先判断是否是EXTI4传来的请求
     if(GPIO_Pin == GPIO_PIN_4)//上边的HAL_GPIO_EXTI_IRQHandler (GPIO_PIN_4)当中有一个回调函数,通过对它重写实现对应中断线的中断逻辑
     {
-        //先清除中断挂起标志位,HAL库的中断服务函数已经对其置位了
-        
-        //防抖延时
-        HAL_Delay(10);
-        
+        //先清除中断挂起标志位,HAL库的中断服务函数已经对其置位了                          
         //判断如果按键依然保持低电平(消抖之后)那么便翻转LED灯
         if(HAL_GPIO_ReadPin(GPIOE,GPIO_PIN_4) == GPIO_PIN_RESET)
         {
@@ -245,10 +244,7 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
         }  
     }
     else if (GPIO_Pin == GPIO_PIN_3)
-    {
-                //防抖延时
-        HAL_Delay(10);
-        
+    {        
         //判断如果按键依然保持低电平(消抖之后)那么便翻转LED灯
         if(HAL_GPIO_ReadPin(GPIOE,GPIO_PIN_3) == GPIO_PIN_RESET)
         {

@@ -731,7 +731,7 @@ GPIO外部输入控制中断主要是走下面红色箭头路线，我们只需�
 
 ![image-20250413101558886](STM32学习笔记.assets/image-20250413101558886.png)
 
-##### 3.2如何使用中断
+#### 3.2如何使用中断
 
 ![image-20250413101921937](STM32学习笔记.assets/image-20250413101921937.png)
 
@@ -750,3 +750,136 @@ GPIO外部输入控制中断主要是走下面红色箭头路线，我们只需�
 ![image-20250413103024052](STM32学习笔记.assets/image-20250413103024052.png)
 
 6、中断处理函数中要学会清除PR寄存器
+
+注意：**避免长时间操作**：中断服务函数应该尽可能简短，避免执行耗时操作，比如延时、复杂的计算等。长时间的中断处理会影响系统实时性，可能导致其他中断无法及时响应。如果需要处理复杂任务，可以考虑在中断中设置标志位，在主循环中处理。
+
+#### 3.3其他注意点
+
+在STM32中，处理EXTI0-4、EXTI5-9和EXTI10-15的中断服务函数时，需注意以下关键点：
+
+##### **1. 中断服务函数命名**
+- **EXTI0-4**：每个中断线有独立的服务函数，命名必须为：
+  ```c
+  void EXTI0_IRQHandler(void)  // EXTI0
+  void EXTI1_IRQHandler(void)  // EXTI1
+  void EXTI2_IRQHandler(void)  // EXTI2
+  void EXTI3_IRQHandler(void)  // EXTI3
+  void EXTI4_IRQHandler(void)  // EXTI4
+  ```
+- **EXTI5-9**：共享一个服务函数，命名为：
+  ```c
+  void EXTI9_5_IRQHandler(void)
+  ```
+- **EXTI10-15**：共享一个服务函数，命名为：
+  ```c
+  void EXTI15_10_IRQHandler(void)
+  ```
+
+---
+
+##### **2. 检查中断标志（共享中断线）**
+对于共享中断线（EXTI5-9和EXTI10-15），需在服务函数内遍历检查所有可能的中断源：
+```c
+// EXTI5-9 示例
+void EXTI9_5_IRQHandler(void) {
+    if (EXTI_GetITStatus(EXTI_Line5) != RESET) {
+        // 处理EXTI5中断
+        EXTI_ClearITPendingBit(EXTI_Line5);
+    }
+    if (EXTI_GetITStatus(EXTI_Line6) != RESET) {
+        // 处理EXTI6中断
+        EXTI_ClearITPendingBit(EXTI_Line6);
+    }
+    // ... 检查EXTI7、EXTI8、EXTI9
+}
+```
+
+---
+
+##### **3. 清除中断标志**
+- 处理完成后必须清除对应中断线的挂起标志，防止重复触发。
+- **推荐方法**：
+  ```c
+  EXTI_ClearITPendingBit(EXTI_Linex);  // 标准库
+  __HAL_GPIO_EXTI_CLEAR_IT(GPIO_PIN_x);  // HAL库
+  ```
+
+---
+
+##### **4. 中断优先级配置**
+- 通过NVIC设置优先级，确保关键中断优先响应：
+  ```c
+  NVIC_InitTypeDef NVIC_InitStruct;
+  NVIC_InitStruct.NVIC_IRQChannel = EXTI0_IRQn;  // 以EXTI0为例
+  NVIC_InitStruct.NVIC_IRQChannelPreemptionPriority = 0;
+  NVIC_InitStruct.NVIC_IRQChannelSubPriority = 0;
+  NVIC_InitStruct.NVIC_IRQChannelCmd = ENABLE;
+  NVIC_Init(&NVIC_InitStruct);
+  ```
+
+---
+
+##### **5. 高效中断设计**
+- **保持简短**：避免复杂操作（如延时、打印），改用标志位通知主循环。注意**`volatile`**关键字的使用。
+
+- ```c
+  volatile int i=10; //中断服务程序的标志位常用关键字,用来表示寄存器状态
+  int j = i; 
+  ...
+  int k = i;
+  ```
+
+  **volatile 告诉编译器i是随时可能发生变化的，每次使用它的时候必须从i的地址中读取，因而编译器生成的可执行码会重新从i的地址读取数据放在k中。** 
+
+  **而优化做法是，由于编译器 发现两次从i读数据的代码之间的代码没有对i进行过操作，它会自动把上次读的数据放在k中。而不是重新从i里面读。**
+
+  **这样以来，如果i是一个寄存器变量或者表示一个端口数据就容 易出错，所以说volatile可以保证对特殊地址的稳定访问，不会出错。**
+
+- **防重入**：使用`__disable_irq()`和`__enable_irq()`临时关闭中断（谨慎使用）。
+
+---
+
+##### **6. 触发模式选择**
+- **边沿触发**（推荐）：避免电平触发下的“中断风暴”。
+- **软件消抖**：若信号有噪声，需在硬件或软件中添加滤波。-->  比如按键会需要一个旁路电容(硬件去抖动)
+
+---
+
+##### **7. GPIO与时钟配置**
+- 确保GPIO时钟和AFIO时钟已使能：
+  ```c
+  RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOA | RCC_APB2Periph_AFIO, ENABLE);
+  ```
+- 配置GPIO为输入模式并绑定到EXTI线：
+  ```c
+  GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IPU;  // 上拉输入
+  EXTI_InitStructure.EXTI_Line = EXTI_Line0;     // 绑定到EXTI0
+  ```
+
+---
+
+**常见问题**
+
+- **中断未触发**：检查NVIC配置、EXTI线绑定、GPIO模式及时钟。
+- **重复进入中断**：确认中断标志已清除，触发模式设置正确。
+- **共享中断遗漏处理**：确保遍历检查所有可能的中断线。
+
+---
+
+**示例代码（EXTI10-15）**
+
+```c
+void EXTI15_10_IRQHandler(void) {
+    if (__HAL_GPIO_EXTI_GET_IT(GPIO_PIN_10) != RESET) {
+        // 处理EXTI10
+        __HAL_GPIO_EXTI_CLEAR_IT(GPIO_PIN_10);
+    }
+    if (__HAL_GPIO_EXTI_GET_IT(GPIO_PIN_11) != RESET) {
+        // 处理EXTI11
+        __HAL_GPIO_EXTI_CLEAR_IT(GPIO_PIN_11);
+    }
+    // ... 检查EXTI12-15
+}
+```
+
+遵循以上要点，可确保外部中断的正确响应与高效处理，同时避免常见错误。
