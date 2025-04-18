@@ -27,18 +27,14 @@ Project File Date:  04/14/2025
 <h2>Output:</h2>
 *** Using Compiler 'V5.06 update 7 (build 960)', folder: 'D:\Software\MDK536\ARM\ARMCC\Bin'
 Build target 'LED'
-compiling main.c...
-..\..\User\main.c(22): warning:  #223-D: function "USART1_Init" declared implicitly
-      USART1_Init();
-..\..\User\main.c(25): warning:  #223-D: function "USART1_SendChar" declared implicitly
-      USART1_SendChar('a');
-..\..\User\main.c(37): warning:  #223-D: function "USART1_ReceiveChar" declared implicitly
-          uint8_t ch = USART1_ReceiveChar();
-..\..\User\main.c: 3 warnings, 0 errors
+compiling usart1.c...
+..\..\Drivers\BSP\USART1\usart1.c(129): warning:  #1-D: last line of file ends without a newline
+  // }
+..\..\Drivers\BSP\USART1\usart1.c: 1 warning, 0 errors
 linking...
-Program Size: Code=1500 RO-data=424 RW-data=12 ZI-data=1324  
+Program Size: Code=1700 RO-data=424 RW-data=16 ZI-data=1424  
 FromELF: creating hex file...
-"..\..\Output\atk_f407.axf" - 0 Error(s), 3 Warning(s).
+"..\..\Output\atk_f407.axf" - 0 Error(s), 1 Warning(s).
 
 <h2>Software Packages used:</h2>
 

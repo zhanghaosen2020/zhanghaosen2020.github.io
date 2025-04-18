@@ -13,3 +13,4 @@
 ..\..\output\main.o: D:\Software\MDK536\ARM\ARMCC\Bin\..\include\stdio.h
 ..\..\output\main.o: ..\..\Drivers\./SYSTEM/delay/delay.h
 ..\..\output\main.o: ..\..\Drivers\./BSP/USART1/usart1.h
+..\..\output\main.o: D:\Software\MDK536\ARM\ARMCC\Bin\..\include\string.h

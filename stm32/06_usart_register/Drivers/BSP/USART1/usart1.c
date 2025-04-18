@@ -45,11 +45,11 @@ void USART1_Init(void)
 void USART1_SendChar(uint8_t ch)
 {
     //判断SR里的TXE是否为1,当 TDR 寄存器的内容已传输到移位寄存器时，该位由硬件置 1
-    while((USART1->SR & USART_SR_TXE)==0)//说明发送缓冲区还有数据,while循环中只需要等待即可
+    while((USART1->SR & USART_SR_TXE) == 0)//说明发送缓冲区还有数据,while循环中只需要等待即可
     {
     }
     //向DR中写入新的要发送的数据
-    USART1->DR = ch;
+    USART1->DR = ch;//对DR进行写操作之后,就会自己将TXE清零
     
 
 }
@@ -60,8 +60,70 @@ uint8_t USART1_ReceiveChar(void)
     //当 RDR 移位寄存器的内容已传输到 USART_DR 寄存器时，该位由硬件置 1。
     while((USART1->SR & USART_SR_RXNE) == 0)
     {
+        //增加判断空闲帧的条件
+        if(USART1->SR & USART_SR_IDLE)
+        {
+            return 0;//\0
+        }
     }
     
     //读取已经接受到的数据,等待接受下一个数据
-    return USART1 -> DR;
+    return USART1 -> DR;//这里引申出一个新的问题,RXNE这一位硬件置位,那他怎么复位呢,只有复位了才能下一步操作
+    //其实在寄存器的描述中,当我们读DR的时候就可以将其复位(为0),即return USART1->DR;
 }
+
+//发送字符串
+void USART1_SendString(uint8_t *str ,uint8_t size)
+{
+    for(uint8_t i=0; i < size ;i++)
+    {
+        USART1_SendChar(str[i]);
+    }
+}
+
+// 接收字符串
+void USART1_ReceiveString(uint8_t buffer[],uint8_t *size)
+{
+    //定义一个变量,用来保存已经接收到的字符个数
+    uint8_t i = 0;
+    while((USART1->SR & USART_SR_IDLE) == 0)
+    {
+        buffer[i]  = USART1_ReceiveChar();
+/*这里试着来分析一下,上边的逻辑相当于while循环的嵌套,最后一个字符进入内循环之后,IDLE这个标志位
+  还没有置位(因为这需要一个字节的空闲帧),因此会再次进入接受一个字符的内循环,但是此时已经没有字符接收了,
+  就会一直卡在内循环里*/
+        i++;
+    }
+    //清除IDLE位
+    USART1->SR;
+    USART1->DR;
+
+    *size = --i;
+}
+
+
+//下面这是个有用的正确函数,不过逻辑复杂了一点
+// void USART1_ReceiveString(uint8_t buffer[],uint8_t *size)//这里的逻辑要稍微复杂一点,可是理清楚之后也就还好
+// {
+//     //定义一个变量,用来保存已经接收到的字符个数
+//     uint8_t i = 0;
+
+//     //外层,不停的接受下一个字符
+//     while(1)//里边一定要可以跳出循环
+//     {
+//         //内层循环,判断当前数据帧是否接受完毕
+//         while((USART1->SR & USART_SR_RXNE) == 0)
+//         {
+//             //在等待期间,判断是否收到空闲帧
+//             if(USART1->SR & USART_SR_IDLE)
+//             {
+//                 //字符串接受完毕
+//                 *size = i;
+//                 return;
+//             }
+//         }
+//         //把接收到的字符放入缓冲区中
+//         buffer[i] = USART1->DR;
+//         i++;
+//     }
+// }

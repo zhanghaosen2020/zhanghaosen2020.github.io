@@ -6,7 +6,11 @@
 //#include "./BSP/KEY/key.h"
 
 #include "./BSP/USART1/usart1.h"
+#include "string.h"
 
+//定义全局变量,接收缓冲区和size
+uint8_t buffer[100] = 0;
+uint8_t size = 0;
 
 int main(void)
 {
@@ -15,8 +19,7 @@ int main(void)
     
 
 
-//    LED_Init();//上边的步骤封装到这个函数里边了
-//    KEY_Init();
+
 
     //初始化串口
     USART1_Init();
@@ -25,6 +28,10 @@ int main(void)
     USART1_SendChar('a');
     USART1_SendChar('t');
     USART1_SendChar('\n');
+
+    //发送字符串
+    uint8_t *str = "hellow wrold\n";
+    USART1_SendString(str,strlen((char*)str));//strlen应该传入一个const cahr*的数据,所以我们这里强转一下类型,避免报错
     
 
     while(1)
@@ -34,8 +41,10 @@ int main(void)
         // delay_ms(1000);
 
         //接收字符,再发送回来
-        uint8_t ch = USART1_ReceiveChar();
-        USART1_SendChar(ch-32);//发送小写字符,-32,变化为大写字符
+        // uint8_t ch = USART1_ReceiveChar();
+        // USART1_SendChar(ch-32);//发送小写字符,-32,变化为大写字符
+        USART1_ReceiveString(buffer,&size);
+        USART1_SendString(buffer,size);
     }
 }
 
