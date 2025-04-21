@@ -52,7 +52,7 @@
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
-
+extern uint16_t size;
 /* USER CODE END 0 */
 
 /* External variables --------------------------------------------------------*/
@@ -215,9 +215,16 @@ void USART1_IRQHandler(void)
 
 /* USER CODE BEGIN 1 */
 extern uint8_t isOver;
-void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
+//void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)//定长的回调
+//{
+//    isOver = 1;
+//}
+
+void HAL_UARTEx_RxEventCallback(UART_HandleTypeDef *huart, uint16_t Size)//变长的回调
 {
     isOver = 1;
+    size = Size;
 }
+
 /* USER CODE END 1 */
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

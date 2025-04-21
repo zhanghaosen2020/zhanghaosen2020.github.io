@@ -98,13 +98,21 @@ int main(void)
   /* USER CODE BEGIN WHILE */
   while (1)
   {
+      //以中断方式接收
+//      HAL_UART_Receive_IT(&huart1,buffer,10);//有点类似于开启中断 (定长数据,容易乱码)
+//      if(isOver)
+//      {
+//        HAL_UART_Transmit(&huart1,buffer,10,1000);
+//        isOver = 0 ;
+//      }      
+    
+      //变长数据的接收
+      HAL_UARTEx_ReceiveToIdle_IT(&huart1,buffer,100);
       if(isOver)
       {
-        HAL_UART_Transmit(&huart1,buffer,10,1000);
+        HAL_UART_Transmit(&huart1,buffer,size,1000);
         isOver = 0 ;
-      }      
-      //以中断方式接收
-      HAL_UART_Receive_IT(&huart1,buffer,10);//有点类似于开启中断     
+      }
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
