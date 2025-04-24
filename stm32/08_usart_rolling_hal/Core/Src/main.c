@@ -99,7 +99,6 @@ int main(void)
 //    uint8_t str1 = 'A';
 //    HAL_UART_Transmit(&huart1,&str1,1,100);
     
-    
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -109,14 +108,15 @@ int main(void)
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
-      //1.阻塞式,接收定长数据并且发送出去,我们用下边的两个函数,第三个参数是指定的数量,如果收10个,发14个,发的会用buffer中的10个之后的初始化解释发送
+      //1.阻塞式,接收定长数据并且发送出去,我们用下边的两个函数,第三个参数是指定的数量,
+      //如果收10个,发14个,发的会用buffer中的10个之后的初始化解释发送
       if(HAL_UART_Receive(&huart1,buffer,10,1000)==HAL_OK)
       {
         HAL_UART_Transmit(&huart1,buffer,10,1000);
       }
       //这样的操作方式接收和发送的数据一定要定长,否则就会出现部分乱码
       
-//       //接收定长字符串,然后原样回去
+//    //接收定长字符串,然后原样回去
 //  先收再发,你接收的定长字符串需要一个接收缓冲区buffer(全局,存放接收到的数据)
 //      if(HAL_UART_Receive(&huart1,buffer,10,1000) == HAL_OK)//如果接收完成hal会返回一个枚举值
 //      {

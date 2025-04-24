@@ -9,7 +9,7 @@
 #include "string.h"
 
 //定义全局变量,接收缓冲区和size
-uint8_t buffer[100] = 0;
+uint8_t buffer[100] = {0};
 uint8_t size = 0;
 
 int main(void)

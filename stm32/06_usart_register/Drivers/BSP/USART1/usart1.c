@@ -49,8 +49,7 @@ void USART1_SendChar(uint8_t ch)
     {
     }
     //向DR中写入新的要发送的数据
-    USART1->DR = ch;//对DR进行写操作之后,就会自己将TXE清零
-    
+    USART1->DR = ch;//对DR进行写操作之后,就会自己将TXE清零  
 
 }
 
@@ -65,8 +64,7 @@ uint8_t USART1_ReceiveChar(void)
         {
             return 0;//\0
         }
-    }
-    
+    }    
     //读取已经接受到的数据,等待接受下一个数据
     return USART1 -> DR;//这里引申出一个新的问题,RXNE这一位硬件置位,那他怎么复位呢,只有复位了才能下一步操作
     //其实在寄存器的描述中,当我们读DR的时候就可以将其复位(为0),即return USART1->DR;
