@@ -1,0 +1,17 @@
+..\..\output\m24c02.o: ..\..\Drivers\BSP\EEPROM\m24c02.c
+..\..\output\m24c02.o: ..\..\Drivers\./BSP/EEPROM/m24c02.h
+..\..\output\m24c02.o: ..\..\Drivers\./BSP/I2C/i2c.h
+..\..\output\m24c02.o: ..\..\Drivers\CMSIS\Device\ST\STM32F4xx\Include\stm32f407xx.h
+..\..\output\m24c02.o: ..\..\Drivers\CMSIS\Include\core_cm4.h
+..\..\output\m24c02.o: D:\Software\MDK536\ARM\ARMCC\Bin\..\include\stdint.h
+..\..\output\m24c02.o: ..\..\Drivers\CMSIS\Include\cmsis_version.h
+..\..\output\m24c02.o: ..\..\Drivers\CMSIS\Include\cmsis_compiler.h
+..\..\output\m24c02.o: ..\..\Drivers\CMSIS\Include\cmsis_armcc.h
+..\..\output\m24c02.o: ..\..\Drivers\CMSIS\Include\mpu_armv7.h
+..\..\output\m24c02.o: ..\..\Drivers\CMSIS\Device\ST\STM32F4xx\Include\system_stm32f4xx.h
+..\..\output\m24c02.o: ..\..\Drivers\./SYSTEM/delay/delay.h
+..\..\output\m24c02.o: ..\..\Drivers\./SYSTEM/sys/sys.h
+..\..\output\m24c02.o: ..\..\Drivers\CMSIS\Device\ST\STM32F4xx\Include\stm32f4xx.h
+..\..\output\m24c02.o: ..\..\Drivers\./BSP/USART1/usart1.h
+..\..\output\m24c02.o: D:\Software\MDK536\ARM\ARMCC\Bin\..\include\stdio.h
+..\..\output\m24c02.o: D:\Software\MDK536\ARM\ARMCC\Bin\..\include\string.h
