@@ -9,13 +9,13 @@ void I2C_Init(void)
 
     //2.GPIO工作模式设置:复用 开漏 输出上拉    
     // 配置PB6和PB7为复用功能模式（AF4），开漏输出，上拉
-    GPIOB->MODER   &= ~(GPIO_MODER_MODER6 | GPIO_MODER_MODER7); // 清除原有模式
-    GPIOB->MODER   |= (2 << GPIO_MODER_MODER6_Pos) | (2 << GPIO_MODER_MODER7_Pos); // 设置为复用模式
-    GPIOB->OTYPER  |= GPIO_OTYPER_OT6 | GPIO_OTYPER_OT7;        // 开漏输出
-    GPIOB->PUPDR   |= (GPIO_PUPDR_PUPD6_0 | GPIO_PUPDR_PUPD7_0); // 上拉电阻
+    GPIOB->MODER   &= ~(GPIO_MODER_MODER8 | GPIO_MODER_MODER9); // 清除原有模式
+    GPIOB->MODER   |= (2 << GPIO_MODER_MODER8_Pos) | (2 << GPIO_MODER_MODER9_Pos); // 设置为复用模式
+    GPIOB->OTYPER  |= GPIO_OTYPER_OT8 | GPIO_OTYPER_OT9;        // 开漏输出
+    GPIOB->PUPDR   |= (GPIO_PUPDR_PUPD8_0 | GPIO_PUPDR_PUPD9_0); // 上拉电阻
     
     //这步很重要
-    GPIOB->AFR[0]  |= (4 << GPIO_AFRL_AFSEL6_Pos) | (4 << GPIO_AFRL_AFSEL7_Pos);    // AF4（I2C1复用功能）
+    GPIOB->AFR[1]  |= (4 << GPIO_AFRH_AFSEL8_Pos) | (4 << GPIO_AFRH_AFSEL9_Pos);    // AF4（I2C1复用功能）
 //该功能是在stm32f407data手册 3.7 节alternate function mapping里边
     
     //3.IIC1配置

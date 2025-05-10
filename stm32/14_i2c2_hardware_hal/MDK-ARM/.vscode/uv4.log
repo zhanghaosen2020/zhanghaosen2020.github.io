@@ -1,0 +1,5 @@
+Load "14_i2c_hardware_hal\\14_i2c_hardware_hal.axf" 
+_____^
+*** error 56: cannot open file
+Error: Flash Download failed  -  Could not load file '14_i2c_hardware_hal\14_i2c_hardware_hal.axf'
+Flash Load finished at 17:15:02

@@ -1,0 +1,1 @@
+14_i2c_hardware_hal\startup_stm32f407xx.o: startup_stm32f407xx.s
