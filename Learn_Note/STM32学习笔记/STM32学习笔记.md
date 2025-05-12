@@ -1215,3 +1215,880 @@ IIC 总线进行数据传送时，时钟信号为高电平期间，数据线上�
 
 
 ![img](STM32学习笔记.assets/1298835-20210529165530585-484663029.png)
+
+### 5.5任意GPIO口软件模拟IIC
+
+i2c.h
+
+```c
+#ifndef __I2C_H
+#define __I2C_H
+
+#include "stm32f407xx.h"
+#include "./SYSTEM/delay/delay.h"//因为后续,时钟线和数据线都需要拉高持续一段时间故引入
+
+//宏定义(为了可读性)
+#define ACK 0
+#define NACK 1
+
+#define SCL_HIGHT (GPIOB->ODR |= GPIO_ODR_ODR_8)
+#define SCL_LOW (GPIOB->ODR &= ~GPIO_ODR_ODR_8)
+#define SDA_HIGHT (GPIOB->ODR |= GPIO_ODR_ODR_9)
+#define SDA_LOW (GPIOB->ODR &= ~GPIO_ODR_ODR_9)//32控制时钟线/写入线
+
+//读取操作
+#define READ_SDA (GPIOB->IDR & GPIO_IDR_IDR_9)
+
+//定义操作的延时
+#define I2C_DELAY delay_us(10);
+
+//初始化
+void I2C_Init(void);
+
+//发出起始信号
+void I2C_Start(void);
+
+//发出停止信号
+void I2C_Stop(void);
+
+//主机发出应答信号
+void I2C_Ack(void);
+
+//主机发出非应答信号
+void I2C_Nack(void);
+
+//主机等待从设备发来应答信号
+uint8_t I2C_Wait4Ack(void);
+
+//主机发送一个字节数据(写入,往eeprom写入)
+void I2C_SendByte(uint8_t byte);
+
+//主机从EEPROM接收一个字节的数据(读取)
+uint8_t I2C_Read_Byte(void);
+#endif
+```
+
+上边定义了通信中常用的状态接口
+
+i2c.c
+
+```c
+#include "./BSP/I2C/i2c.h"
+
+//初始化
+void I2C_Init(void)
+{
+    //1.配置时钟
+    RCC->AHB1ENR |= RCC_AHB1ENR_GPIOBEN;
+
+    //2.GPIO工作模式设置:通用开漏输出上拉
+    GPIOB->MODER &= ~(GPIO_MODER_MODER8 | GPIO_MODER_MODER9); // 清除原有模式
+    GPIOB->MODER |= (GPIO_MODER_MODER8_0 | GPIO_MODER_MODER9_0);//通用输出
+
+    GPIOB->OSPEEDR |= (GPIO_OSPEEDER_OSPEEDR8_1 |GPIO_OSPEEDER_OSPEEDR9_1);//50Mhz
+
+    GPIOB->OTYPER |= (GPIO_OTYPER_OT_8 | GPIO_OTYPER_OT_9);//开漏
+
+    GPIOB->PUPDR &= ~(GPIO_PUPDR_PUPD8 | GPIO_PUPDR_PUPD9); // 清除原有配置
+    GPIOB->PUPDR |= (GPIO_PUPDR_PUPD8_0 | GPIO_PUPDR_PUPD9_0);//上拉
+
+    // 初始化为高电平（释放总线）
+
+}
+
+//发出起始信号
+void I2C_Start(void)
+{
+    //1.拉高SCL,SDA
+    SCL_HIGHT;
+    SDA_HIGHT;
+    I2C_DELAY;
+    
+    //2.SCL保持不变,SDA拉低
+    SDA_LOW;
+    I2C_DELAY;
+}
+
+//发出停止信号
+void I2C_Stop(void)
+{
+    //1.拉高SCL,拉低SDA
+    SCL_HIGHT;
+    SDA_LOW;
+    I2C_DELAY;
+    
+    //2.SCL保持不变,SDA拉高
+    SDA_HIGHT;
+    I2C_DELAY;
+}
+
+//主机发出应答信号
+void I2C_Ack(void)
+{
+    //1.SCL拉低,SDA拉高,准备发出应答信号
+    SCL_LOW;
+    SDA_HIGHT;
+    I2C_DELAY;
+    //2.SCL保持不变,SDA拉低,输出应答信号
+    SDA_LOW;
+    I2C_DELAY;    
+    //3.SDA保持不变,SCL拉高,开始数据线上的信号采样
+    SCL_HIGHT;
+    I2C_DELAY;
+    //4.SDA保持不变,SCL拉低,结束数据线上的信号采样
+    SCL_LOW;
+    I2C_DELAY;
+    //5.SDA拉高,释放数据总线
+    SDA_HIGHT;
+    I2C_DELAY;
+}
+
+//主机发出非应答信号
+void I2C_Nack(void)
+{
+    //1.scl拉低,sda拉高,准备发出信号
+    SCL_LOW;
+    SDA_HIGHT;
+    I2C_DELAY;
+    //2.SCL拉高,SDA不变,
+    SCL_HIGHT;
+    I2C_DELAY;
+    //3.SCL拉低,SDA保持不变,结束
+    SCL_LOW;
+    I2C_DELAY;
+}
+    
+
+//主机等待从设备发来应答信号
+uint8_t I2C_Wait4Ack(void)
+{
+    //1.SCL拉低,SDA拉高,释放数据总线
+    SCL_LOW;
+    SDA_HIGHT;
+    I2C_DELAY;
+    //2.SCL拉高,开始数据采样
+    SCL_HIGHT;
+    I2C_DELAY;
+    //3.读取SDA数据线上的电平
+    uint16_t ack = READ_SDA;
+    //4.scl拉低,结束数据采样
+    SCL_LOW;
+    I2C_DELAY;
+    return ack ? NACK : ACK;
+}
+
+//主机发送一个字节数据(写入,往eeprom写入)
+void I2C_SendByte(uint8_t byte)
+{
+    //从一个字节中,一个bit一个bit的拿数据
+    for(uint8_t i=0 ; i<8 ; i++)
+    {
+    //1.SCL\SDA拉低
+        SCL_LOW;
+        SDA_LOW;
+        I2C_DELAY;
+    
+        //2.取字节的高位,向SDA写入数据
+        if(byte&0x80)
+        {
+            SDA_HIGHT;
+        }
+        else
+        {
+            SDA_LOW;
+        }
+        I2C_DELAY;
+        //3.SCL拉高,数据采样
+        SCL_HIGHT;
+        I2C_DELAY;
+        
+        //4.SCL拉低,采样结束
+        SCL_LOW;
+        I2C_DELAY;
+        
+        //5.左移一位
+        byte <<= 1 ;                  
+    }
+    
+}
+
+//主机从EEPROM接收一个字节的数据(读取)
+uint8_t I2C_Read_Byte(void)
+{
+    //定义一个变量用来保存接收的数据
+    uint8_t data = 0;
+    //循环处理每一位
+    for(uint8_t i = 0;i<8;i++)
+    {
+        //1.SCL拉低,等待数据翻转
+        SCL_LOW;
+        I2C_DELAY;
+        
+        //2.SCL拉高,开始采样
+        SCL_HIGHT;
+        I2C_DELAY;
+        
+        //3.数据采样读取SDA上的电平
+        data <<= 1;//先做左移,这样新存入的为永远在最低位
+        if(READ_SDA)
+        {
+            data |= 0x01;//先把发送过来的最高位,存入data的最低位.然后每次都左移1位
+        }
+        //不用else给0了,因为默认就是data的位默认为0,并且左移默认也是补0
+        
+        //4.SCL拉低,结束采样
+        SCL_LOW;
+        I2C_DELAY;
+        
+    }
+    return data;
+}
+
+```
+
+m24c02.h
+
+```c
+#ifndef __M24C02_H
+#define __M24C02_H
+
+#include "./BSP/I2C/i2c.h"//这里边已经引入了很多头文件
+
+//宏定义
+#define W_ADDR 0xA0
+#define R_ADDR 0xA1
+
+//初始化
+void M24C02_Init(void);
+
+//向EEPROM写入一个字节
+void M24C02_WriteByte(uint8_t innerAddr , uint8_t byte);
+
+//读取EEPROM的一个字节
+uint8_t M24C02_ReadByte(uint8_t innerAddr);
+
+//连续写入多个字节(页写)
+void M24C02_WriteBytes(uint8_t innerAddr , uint8_t *bytes, uint8_t size);
+
+//连续读取多个字节
+void M24C02_ReadBytes(uint8_t innerAddr , uint8_t *buffer, uint8_t size);
+
+#endif
+
+```
+
+m24c02.c
+
+```c
+#include "./BSP/EEPROM/m24c02.h"
+
+//初始化
+void M24C02_Init(void)
+{
+    I2C_Init();
+}
+
+//向EEPROM写入一个字节
+void M24C02_WriteByte(uint8_t innerAddr , uint8_t byte)
+{
+    //1.发出开始信号
+    I2C_Start();
+
+    //2.发送写地址
+    I2C_SendByte(W_ADDR);
+
+    //3.等待eeprom的应答
+    uint8_t ack = I2C_Wait4Ack();
+    if(ack == ACK)
+    {
+        //4.发送内部地址
+        I2C_SendByte(innerAddr);
+
+        //5.等待应答
+        I2C_Wait4Ack();//这里可以优化,如果等不到应答设置超时,或者判断
+
+        //6.发送具体的数据
+        I2C_SendByte(byte);
+
+        //7.等待应答
+        I2C_Wait4Ack();
+
+        //8.发出一个停止信号
+        I2C_Stop();
+    }
+    //延迟等待写周期结束,写入数据需要一个周期
+    delay_ms(5);//
+}
+
+//读取EEPROM的一个字节
+uint8_t M24C02_ReadByte(uint8_t innerAddr)
+{
+    //1.发出起始信号
+    I2C_Start();
+
+    //2.发送写地址(假写)
+    I2C_SendByte(W_ADDR);
+
+    //3.等待eeprom的应答
+    I2C_Wait4Ack();
+
+    //4.发送内部地址
+    I2C_SendByte(innerAddr);
+
+    //5.等待应答
+    I2C_Wait4Ack();//这里可以优化,如果等不到应答设置超时,或者判断
+
+    //6.发出起始信号
+    I2C_Start();
+
+    //7.发送读地址(真读)
+    I2C_SendByte(R_ADDR);
+
+    //8.等待eeprom的应答
+    I2C_Wait4Ack();
+
+    //9.读取一个字节
+    uint8_t byte = I2C_Read_Byte();
+
+    //10.发送一个非应答信号
+    I2C_Nack();
+
+    //11.发出一个停止信号
+    I2C_Stop();
+
+    return byte;
+
+
+}
+
+//连续写入多个字节(页写)
+void M24C02_WriteBytes(uint8_t innerAddr , uint8_t *bytes, uint8_t size)
+{
+        //1.发出开始信号
+        I2C_Start();
+
+        //2.发送写地址
+        I2C_SendByte(W_ADDR);
+    
+        //3.等待eeprom的应答
+        uint8_t ack = I2C_Wait4Ack();
+        if(ack == ACK)
+        {
+            //4.发送内部地址
+            I2C_SendByte(innerAddr);
+    
+            //5.等待应答
+            I2C_Wait4Ack();//这里可以优化,如果等不到应答设置超时,或者判断
+    
+            //利用循环不停发送数据
+            for (uint8_t i = 0; i < size; i++)
+            {
+                //6.发送具体的数据
+                I2C_SendByte(bytes[i]);
+
+                //7.等待应答
+                I2C_Wait4Ack();
+            }               
+            //8.发出一个停止信号
+            I2C_Stop();
+        }
+        //延迟等待写周期结束,写入数据需要一个周期
+        delay_ms(5);//字节的写入和页写入都是5ms
+
+}
+
+
+//连续读取多个字节
+void M24C02_ReadBytes(uint8_t innerAddr , uint8_t *buffer, uint8_t size)
+{
+    //1.发出起始信号
+    I2C_Start();
+
+    //2.发送写地址(假写)
+    I2C_SendByte(W_ADDR);
+
+    //3.等待eeprom的应答
+    I2C_Wait4Ack();
+
+    //4.发送内部地址
+    I2C_SendByte(innerAddr);
+
+    //5.等待应答
+    I2C_Wait4Ack();//这里可以优化,如果等不到应答设置超时,或者判断
+
+    //6.发出起始信号
+    I2C_Start();
+
+    //7.发送读地址(真读)
+    I2C_SendByte(R_ADDR);
+
+    //8.等待eeprom的应答
+    I2C_Wait4Ack();
+
+    //利用循环连续读取多个字节
+    for (uint8_t i = 0; i < size; i++)
+    {
+        //9.读取一个字节
+        buffer[i] = I2C_Read_Byte();
+
+        //10.发送一个非应答或非应答信号
+        if (i <(size -1))
+        {
+            I2C_Ack();
+        }
+        else{
+            I2C_Nack();
+        }
+    }
+    //11.发出一个停止信号
+    I2C_Stop();
+
+
+}
+
+```
+
+通过GPIO口模拟IIC通信,其实就是将两个两个io口,分别当做CLK和SDA线,只要符合IIC通信协议就可以在硬件不支持IIC的情况下模拟出该实验。其中重要的是IIC.H是底层，M24C02来调用它，实现通信。
+
+注意:**EEPROM写入时间**：M24C02需要约5ms的写入时间，确保在写入操作后有足够的延时。在芯片手册DATASHEET中有所提及.
+
+### 5.6寄存器方式使用IIC1
+
+#### 5.6.1寄存器介绍
+
+初始化时重要的寄存器:
+
+![image-20250510185357844](STM32学习笔记.assets/image-20250510185357844.png)
+
+寄存器中的某些位是怎样的用法需要结合代码和手册查看,在手册中我将具体要用到的位给与了批注.
+
+#### 5.6.2代码实现
+
+注意:F407这款芯片,IIC1可以在PB6\7和PB8\9这两处复用,而用STM32CubeMx选择IIC1时,在不被占用的情况下,他会默认用PB6\7端口,但是正点原子的开发板,是将EEPROM硬件连接在PB8\9中的,所以我们在使用的时候要注意.
+
+并且我在用寄存器方式实现该功能的时候,犯了挺麻烦的错误,就是未把硬件与软件相联系,有些想当然了,导致串口打印的时候压根读不到数据.
+
+i2c.h
+
+```c
+#ifndef __I2C_H
+#define __I2C_H
+
+#include "stm32f407xx.h"
+#include "./SYSTEM/delay/delay.h"//因为后续,时钟线和数据线都需要拉高持续一段时间故引入
+
+#include "./BSP/USART1/usart1.h"
+#include <string.h>
+
+//宏定义(为了可读性)
+#define OK 0
+#define FAIL 1
+
+//初始化
+void I2C_Init(void);
+
+//发出起始信号
+uint8_t I2C_Start(void);
+
+//设置发出停止信号
+void I2C_Stop(void);
+
+//主机设置使能应答信号
+void I2C_Ack(void);
+
+//主机设置使能非应答信号
+void I2C_Nack(void);
+
+//发送设备地址并等待应答
+uint8_t I2C_SendAddr(uint8_t addr);
+
+//主机发送一个字节数据(写入,往eeprom写入),并且等待应答
+uint8_t I2C_SendByte(uint8_t byte);
+
+//主机从EEPROM接收一个字节的数据(读取)
+uint8_t I2C_Read_Byte(void);
+#endif
+
+```
+
+
+
+i2c.c
+
+```c
+#include "./BSP/I2C/i2c.h"
+
+//初始化
+void I2C_Init(void)
+{
+    //1.配置时钟// 使能GPIOB和I2C1的时钟    
+    RCC->AHB1ENR |= RCC_AHB1ENR_GPIOBEN;   // 使能GPIOB时钟
+    RCC->APB1ENR |= RCC_APB1ENR_I2C1EN;    // 使能I2C1时钟
+
+    //2.GPIO工作模式设置:复用 开漏 输出上拉    
+    // 配置PB6和PB7为复用功能模式（AF4），开漏输出，上拉
+    GPIOB->MODER   &= ~(GPIO_MODER_MODER8 | GPIO_MODER_MODER9); // 清除原有模式
+    GPIOB->MODER   |= (2 << GPIO_MODER_MODER8_Pos) | (2 << GPIO_MODER_MODER9_Pos); // 设置为复用模式
+    GPIOB->OTYPER  |= GPIO_OTYPER_OT8 | GPIO_OTYPER_OT9;        // 开漏输出
+    GPIOB->PUPDR   |= (GPIO_PUPDR_PUPD8_0 | GPIO_PUPDR_PUPD9_0); // 上拉电阻
+    
+    //这步很重要
+    GPIOB->AFR[1]  |= (4 << GPIO_AFRH_AFSEL8_Pos) | (4 << GPIO_AFRH_AFSEL9_Pos);    // AF4（I2C1复用功能）
+//该功能是在stm32f407data手册 3.7 节alternate function mapping里边
+    
+    //3.IIC1配置
+    //3.1硬件工作模式
+    I2C1->CR1 &= ~I2C_CR1_SMBUS;//此位默认也是置位0的
+    //3.2复位IIC外设
+    I2C1->CR1 |= I2C_CR1_SWRST;    // 进入复位模式
+    I2C1->CR1 &= ~I2C_CR1_SWRST;   // 退出复位模式
+    //3.3配置时钟控制寄存器（I2C_CR2）//选择输入的时钟频率
+    I2C1->CR2 |= 42; // 设置APB1时钟频率（单位：MHz）
+    //3.4配置CCR寄存器（时钟控制）,对应数据传输时间100kbit/s,高电平5us
+    I2C1->CCR |= 210; // 标准模式，Duty cycle = 2（默认）
+    //3.5配置TRISE寄存器（上升时间）,scl上升沿最大时钟周期数 + 1
+    I2C1->TRISE = 43;
+    
+    //3.6使能II2模块
+    I2C1->CR1 |= I2C_CR1_PE;//把前边的每位配置好后在开启IIC使能
+}
+
+
+//发出起始信号
+uint8_t I2C_Start(void)
+{
+    //1.产生一个起始信号
+    I2C1->CR1 |= I2C_CR1_START;
+    
+    //引入一个超时时间
+    uint16_t timeout = 0xffff;
+    
+    //2.等待起始信号发出
+    while((I2C1->SR1 & I2C_SR1_SB) == 0  &&  timeout)//当SB置位为1的时候,起始信号发送已发送
+    {
+        timeout--;
+    }     
+    return timeout ? OK : FAIL;
+
+}
+
+//发出停止信号
+void I2C_Stop(void)
+{
+    I2C1->CR1 |= I2C_CR1_STOP;
+}
+
+
+//主机发出应答信号
+void I2C_Ack(void)
+{
+   
+    I2C1->CR1 |= I2C_CR1_ACK;
+}
+
+//主机发出非应答信号
+void I2C_Nack(void)
+{
+    I2C1->CR1 &= ~I2C_CR1_ACK;
+}
+    
+
+//发送设备地址,并等待应答
+uint8_t I2C_SendAddr(uint8_t addr)
+{
+    //直接将要发送的地址给到DR(默认DR就为空)
+    //—发送模式：在 DR 寄存器中写入第一个字节时自动开始发送字节
+    I2C1->DR = addr;
+    
+    //等待应答
+    uint16_t timeout = 0xffff;
+    while((I2C1->SR1 & I2C_SR1_ADDR) == 0 && timeout)//这一位置1之后,说明地址发送结束
+    {
+        timeout--;
+    }
+    //访问SR2,清除ADDR标志位,对应数据手册671
+    if(timeout)
+    {
+        I2C1->SR2;
+    }        
+    return timeout ? OK : FAIL;        
+}
+
+//主机发送一个字节数据(写入,往eeprom写入),并且等待应答
+uint8_t I2C_SendByte(uint8_t byte)
+{
+    //1.等待DR为空,即上一个字节数据已经发送完毕
+    uint16_t timeout = 0xffff;
+    while((I2C1->SR1 & I2C_SR1_TXE) == 0 && timeout)
+    {
+        timeout--;
+    }
+    
+    //2.将要发送的字节放入DR中
+    I2C1-> DR = byte;
+        
+    //3.等待应答
+    timeout = 0xffff;
+    while((I2C1->SR1 & I2C_SR1_BTF) == 0 && timeout)
+    {
+        timeout--;
+    }   
+    return timeout ? OK : FAIL;   
+}
+
+//主机从EEPROM接收一个字节的数据(读取)
+uint8_t I2C_Read_Byte(void)
+{
+    //1.先等待DR为满
+    uint16_t timeout = 0xffff;
+    while((I2C1->SR1 & I2C_SR1_RXNE) == 0 && timeout)
+    {
+        timeout--;
+    }
+    
+    //2.将收到的字节数据返回
+    uint8_t data =  timeout ? I2C1->DR : FAIL;
+    return data;
+}
+
+```
+
+m24c02.h
+
+```c
+#ifndef __M24C02_H
+#define __M24C02_H
+
+#include "./BSP/I2C/i2c.h"//这里边已经引入了很多头文件
+
+//宏定义
+#define W_ADDR 0xA0
+#define R_ADDR 0xA1
+
+//初始化
+void M24C02_Init(void);
+
+//向EEPROM写入一个字节
+void M24C02_WriteByte(uint8_t innerAddr , uint8_t byte);
+
+//读取EEPROM的一个字节
+uint8_t M24C02_ReadByte(uint8_t innerAddr);
+
+//连续写入多个字节(页写)
+void M24C02_WriteBytes(uint8_t innerAddr , uint8_t *bytes, uint8_t size);
+
+//连续读取多个字节
+void M24C02_ReadBytes(uint8_t innerAddr , uint8_t *buffer, uint8_t size);
+
+#endif
+
+```
+
+m24c02.c
+
+```c
+#include "./BSP/EEPROM/m24c02.h"
+
+//初始化
+void M24C02_Init(void)
+{
+    I2C_Init();
+}
+
+//向EEPROM写入一个字节
+void M24C02_WriteByte(uint8_t innerAddr , uint8_t byte)
+{
+    //1.发出开始信号
+    I2C_Start();
+
+    //2.发送写地址
+    I2C_SendAddr(W_ADDR); //3.等待eeprom的应答
+
+   
+    //4.发送内部地址
+    I2C_SendByte(innerAddr);
+
+
+    //6.发送具体的数据
+    I2C_SendByte(byte);
+
+    //8.发出一个停止信号
+    I2C_Stop();
+    
+    //延迟等待写周期结束,写入数据需要一个周期
+    delay_ms(5);//
+}
+
+//读取EEPROM的一个字节
+uint8_t M24C02_ReadByte(uint8_t innerAddr)
+{
+    //1.发出起始信号
+    I2C_Start();
+
+    //2.发送写地址(假写)
+    I2C_SendAddr(W_ADDR);
+
+
+    //4.发送内部地址
+    I2C_SendByte(innerAddr);
+
+    
+    //6.发出起始信号
+    I2C_Start();
+
+    //7.发送读地址(真读)
+    I2C_SendAddr(R_ADDR);
+
+    
+    //10.设置一个非应答信号
+    I2C_Nack();
+
+    //11.设置一个停止信号
+    I2C_Stop();
+    
+    //9.读取一个字节
+    uint8_t byte = I2C_Read_Byte();//注意查看I2C主接收器的序列图
+    
+    return byte;
+
+
+}
+
+//连续写入多个字节(页写)
+void M24C02_WriteBytes(uint8_t innerAddr , uint8_t *bytes, uint8_t size)
+{
+        //1.发出开始信号
+        I2C_Start();
+
+        //2.发送写地址
+        I2C_SendAddr(W_ADDR);
+    
+//        //3.等待eeprom的应答
+//        uint8_t ack = I2C_Wait4Ack();
+    
+
+        //4.发送内部地址
+        I2C_SendByte(innerAddr);
+
+//        //5.等待应答
+//        I2C_Wait4Ack();//这里可以优化,如果等不到应答设置超时,或者判断
+
+        //利用循环不停发送数据
+        for (uint8_t i = 0; i < size; i++)
+        {
+            //6.发送具体的数据
+            I2C_SendByte(bytes[i]);
+
+//            //7.等待应答
+//            I2C_Wait4Ack();
+        }               
+        //8.发出一个停止信号
+        I2C_Stop();
+        
+        //延迟等待写周期结束,写入数据需要一个周期
+        delay_ms(5);//字节的写入和页写入都是5ms
+}
+
+//连续读取多个字节
+void M24C02_ReadBytes(uint8_t innerAddr , uint8_t *buffer, uint8_t size)
+{
+    //1.发出起始信号
+    I2C_Start();
+
+    //2.发送写地址(假写)
+    I2C_SendAddr(W_ADDR);
+
+//    //3.等待eeprom的应答
+//    I2C_Wait4Ack();
+
+    //4.发送内部地址
+    I2C_SendByte(innerAddr);
+
+//    //5.等待应答
+//    I2C_Wait4Ack();//这里可以优化,如果等不到应答设置超时,或者判断
+
+    //6.发出起始信号
+    I2C_Start();
+
+    //7.发送读地址(真读)
+    I2C_SendAddr(R_ADDR);
+
+//    //8.等待eeprom的应答
+//    I2C_Wait4Ack();
+
+    //利用循环连续读取多个字节
+    for (uint8_t i = 0; i < size; i++)
+    {
+         //10.设置一个非应答或非应答信号
+        if (i <(size -1))
+        {
+            I2C_Ack();
+        }
+        else{
+            I2C_Nack();
+            
+                //11.设置发出一个停止信号
+            I2C_Stop();
+        }
+        
+       //9.读取一个字节
+        buffer[i] = I2C_Read_Byte();
+    }
+}
+
+```
+
+
+
+main.c测试代码
+
+```c
+//1.初始化
+    USART1_Init();
+    M24C02_Init();
+    printf("IIC软件模拟开始!\n");
+
+    //2.向eeprom一次写入单个字节
+    M24C02_WriteByte(0x00,'a');
+    M24C02_WriteByte(0x01,'b');
+    M24C02_WriteByte(0x02,'c');
+    M24C02_WriteByte(0x03,'d');
+
+
+    //3.一次读取字符
+    uint8_t byte1 = M24C02_ReadByte(0x00);
+    uint8_t byte2 = M24C02_ReadByte(0x01);
+    uint8_t byte3 = M24C02_ReadByte(0x03);
+    uint8_t byte4 = M24C02_ReadByte(0x02);
+
+    //4.串口输出打印
+    printf("byte1 = %c\t byte2 = %c\t byte3 = %c\t byte4 = %c\n",byte1,byte2,byte3,byte4);
+
+//    //5.写入多个字符
+    M24C02_WriteBytes(0x00,"12345af",7);
+
+//    //6.读取多个字符
+    uint8_t buffer[100] = {0};
+    M24C02_ReadBytes(0x00,buffer,7);
+
+//    //7.串口打印
+    printf("buffer1 = %s\n",buffer);
+
+
+//    //8.测试超出16个子节的写入  (若超出一页的16个子节,m24c02会重新往前覆盖)
+//    //ATM24C02是一页8个字节
+    // memset(buffer ,0 ,sizeof(buffer));//将buffer的数据清空
+    M24C02_WriteBytes(0x00,"12345678",8);
+    M24C02_ReadBytes(0x00,buffer,8);
+    printf("buffer2 = %s\n",buffer);
+    
+    //9.页写
+    memset(buffer ,0 ,sizeof(buffer));//将buffer的数据清空
+    M24C02_WriteBytes(0x00,"1234567890abcdef",16);
+    M24C02_ReadBytes(0x00,buffer,16);
+    printf("buffer3 = %s\n",buffer);
+```
+
+
+
+### 5.7HAL库方式使用IIC1
