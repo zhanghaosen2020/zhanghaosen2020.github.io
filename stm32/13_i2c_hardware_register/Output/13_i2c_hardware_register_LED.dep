@@ -1,7 +1,7 @@
 Dependencies for Project '13_i2c_hardware_register', Target 'LED': (DO NOT MODIFY !)
 CompilerVersion: 5060960::V5.06 update 7 (build 960)::.\ARMCC
 F (..\..\Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templates\arm\startup_stm32f407xx.s)(0x665054DC)(--cpu Cortex-M4.fp.sp -g --apcs=interwork --pd "__MICROLIB SETA 1"-ID:\Software\MDK536\Packs\Keil\STM32F4xx_DFP\2.15.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include--pd "__UVISION_VERSION SETA 536" --pd "STM32F407xx SETA 1"--list ..\..\output\startup_stm32f407xx.lst --xref -o ..\..\output\startup_stm32f407xx.o --depend ..\..\output\startup_stm32f407xx.d)
-F (..\..\User\main.c)(0x681F09E3)(--c99 -c --cpu Cortex-M4.fp.sp -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I ..\..\Drivers\CMSIS\Device\ST\STM32F4xx\Include -I ..\..\Drivers\CMSIS\Include -I ..\..\Drivers -I ..\..\Middlewares -I ..\..\User -I ..\..\Drivers\BSP\LED -I ..\..\Drivers\BSP\KEY -I ..\..\Drivers\BSP\USART1 -I ..\..\Drivers\BSP\I2C -I ..\..\Drivers\BSP\EEPROM-ID:\Software\MDK536\Packs\Keil\STM32F4xx_DFP\2.15.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-D__UVISION_VERSION="536" -DSTM32F407xx -DSTM32F407xx-o ..\..\output\main.o --omf_browse ..\..\output\main.crf --depend ..\..\output\main.d)
+F (..\..\User\main.c)(0x6821AFEE)(--c99 -c --cpu Cortex-M4.fp.sp -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I ..\..\Drivers\CMSIS\Device\ST\STM32F4xx\Include -I ..\..\Drivers\CMSIS\Include -I ..\..\Drivers -I ..\..\Middlewares -I ..\..\User -I ..\..\Drivers\BSP\LED -I ..\..\Drivers\BSP\KEY -I ..\..\Drivers\BSP\USART1 -I ..\..\Drivers\BSP\I2C -I ..\..\Drivers\BSP\EEPROM-ID:\Software\MDK536\Packs\Keil\STM32F4xx_DFP\2.15.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-D__UVISION_VERSION="536" -DSTM32F407xx -DSTM32F407xx-o ..\..\output\main.o --omf_browse ..\..\output\main.crf --depend ..\..\output\main.d)
 I (..\..\Drivers\./SYSTEM/sys/sys.h)(0x665054DC)
 I (..\..\Drivers\CMSIS\Device\ST\STM32F4xx\Include\stm32f4xx.h)(0x665054DC)
 I (..\..\Drivers\CMSIS\Device\ST\STM32F4xx\Include\stm32f407xx.h)(0x665054DC)
@@ -15,10 +15,10 @@ I (..\..\Drivers\CMSIS\Device\ST\STM32F4xx\Include\system_stm32f4xx.h)(0x665054D
 I (..\..\Drivers\./SYSTEM/usart/usart.h)(0x665054DC)
 I (D:\Software\MDK536\ARM\ARMCC\include\stdio.h)(0x60252374)
 I (..\..\Drivers\./SYSTEM/delay/delay.h)(0x665054DC)
-I (..\..\Drivers\./BSP/USART1/usart1.h)(0x680359A9)
 I (D:\Software\MDK536\ARM\ARMCC\include\string.h)(0x6025237E)
 I (..\..\Drivers\./BSP/EEPROM/m24c02.h)(0x680CAD7F)
 I (..\..\Drivers\./BSP/I2C/i2c.h)(0x681C7766)
+I (..\..\Drivers\./BSP/USART1/usart1.h)(0x680359A9)
 F (..\..\Drivers\SYSTEM\delay\delay.c)(0x67EFD6E2)(--c99 -c --cpu Cortex-M4.fp.sp -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I ..\..\Drivers\CMSIS\Device\ST\STM32F4xx\Include -I ..\..\Drivers\CMSIS\Include -I ..\..\Drivers -I ..\..\Middlewares -I ..\..\User -I ..\..\Drivers\BSP\LED -I ..\..\Drivers\BSP\KEY -I ..\..\Drivers\BSP\USART1 -I ..\..\Drivers\BSP\I2C -I ..\..\Drivers\BSP\EEPROM-ID:\Software\MDK536\Packs\Keil\STM32F4xx_DFP\2.15.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-D__UVISION_VERSION="536" -DSTM32F407xx -DSTM32F407xx-o ..\..\output\delay.o --omf_browse ..\..\output\delay.crf --depend ..\..\output\delay.d)
 I (..\..\Drivers\./SYSTEM/sys/sys.h)(0x665054DC)
 I (..\..\Drivers\CMSIS\Device\ST\STM32F4xx\Include\stm32f4xx.h)(0x665054DC)
@@ -109,7 +109,7 @@ I (..\..\Drivers\CMSIS\Device\ST\STM32F4xx\Include\stm32f4xx.h)(0x665054DC)
 I (..\..\Drivers\./BSP/USART1/usart1.h)(0x680359A9)
 I (D:\Software\MDK536\ARM\ARMCC\include\stdio.h)(0x60252374)
 I (D:\Software\MDK536\ARM\ARMCC\include\string.h)(0x6025237E)
-F (..\..\Drivers\BSP\I2C\i2c.c)(0x681F08A4)(--c99 -c --cpu Cortex-M4.fp.sp -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I ..\..\Drivers\CMSIS\Device\ST\STM32F4xx\Include -I ..\..\Drivers\CMSIS\Include -I ..\..\Drivers -I ..\..\Middlewares -I ..\..\User -I ..\..\Drivers\BSP\LED -I ..\..\Drivers\BSP\KEY -I ..\..\Drivers\BSP\USART1 -I ..\..\Drivers\BSP\I2C -I ..\..\Drivers\BSP\EEPROM-ID:\Software\MDK536\Packs\Keil\STM32F4xx_DFP\2.15.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-D__UVISION_VERSION="536" -DSTM32F407xx -DSTM32F407xx-o ..\..\output\i2c.o --omf_browse ..\..\output\i2c.crf --depend ..\..\output\i2c.d)
+F (..\..\Drivers\BSP\I2C\i2c.c)(0x681F1280)(--c99 -c --cpu Cortex-M4.fp.sp -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I ..\..\Drivers\CMSIS\Device\ST\STM32F4xx\Include -I ..\..\Drivers\CMSIS\Include -I ..\..\Drivers -I ..\..\Middlewares -I ..\..\User -I ..\..\Drivers\BSP\LED -I ..\..\Drivers\BSP\KEY -I ..\..\Drivers\BSP\USART1 -I ..\..\Drivers\BSP\I2C -I ..\..\Drivers\BSP\EEPROM-ID:\Software\MDK536\Packs\Keil\STM32F4xx_DFP\2.15.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-D__UVISION_VERSION="536" -DSTM32F407xx -DSTM32F407xx-o ..\..\output\i2c.o --omf_browse ..\..\output\i2c.crf --depend ..\..\output\i2c.d)
 I (..\..\Drivers\./BSP/I2C/i2c.h)(0x681C7766)
 I (..\..\Drivers\CMSIS\Device\ST\STM32F4xx\Include\stm32f407xx.h)(0x665054DC)
 I (..\..\Drivers\CMSIS\Include\core_cm4.h)(0x665054DC)

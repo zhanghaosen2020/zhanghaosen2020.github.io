@@ -4,6 +4,7 @@
 #include "stm32f4xx.h"
 //#include "./BSP/LED/led.h"
 //#include "./SYSTEM/delay/delay.h"
+#include"stdio.h"
 extern uint8_t buffer[100];
 extern uint8_t size;
 

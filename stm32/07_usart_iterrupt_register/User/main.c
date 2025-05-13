@@ -21,7 +21,7 @@ int main(void)
     
     //初始化串口
     USART1_Init();
-    
+
     //发送单个字符
     USART1_SendChar('a');
     USART1_SendChar('t');
@@ -43,4 +43,6 @@ int main(void)
         } 
     }
 }
+
+
 
